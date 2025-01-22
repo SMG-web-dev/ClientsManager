@@ -2,7 +2,7 @@
 <form method="POST">
 
     <label for="id">Id:</label>
-    <input type="text" name="id" readonly value="<?= $cli->id ?>">
+    <input type="text" name="id" <?php if ($orden = "Modificar") : ?>readonly<?php endif; ?> value="<?= $cli->id ?>">
 
     <label for="first_name">Nombre:</label>
     <input type="text" id="first_name" name="first_name" value="<?= $cli->first_name; ?>">
@@ -26,3 +26,26 @@
     <input type="submit" name="orden" value="<?= $orden ?>">
     <input type="submit" name="orden" value="Volver">
 </form>
+<br>
+
+<!-- Mejora anterior/siguiente -->
+<?php if ($orden == "Modificar") : ?>
+    <div style="display: flex;">
+        <?php if ($cli->idAnterior !== null): ?>
+            <form method="get" action="index.php">
+                <input type="hidden" name="orden" value="Modificar">
+                <input type="hidden" name="id" value="<?= $cli->idAnterior ?>">
+                <button type="submit">
+                    < </button>
+            </form>
+        <?php endif; ?>
+
+        <?php if ($cli->idSiguiente !== null): ?>
+            <form method="get" action="index.php">
+                <input type="hidden" name="orden" value="Modificar">
+                <input type="hidden" name="id" value="<?= $cli->idSiguiente ?>">
+                <button type="submit"> > </button>
+            </form>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

@@ -27,7 +27,8 @@ table {
   border-collapse: collapse;
   margin-bottom: 20px;
 }
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: left;
@@ -80,7 +81,7 @@ input[type="email"] {
 }
 
 input[type="submit"] {
-  background-color: #4CAF50; /* Verde */
+  background-color: #4caf50; /* Verde */
   color: white;
   padding: 12px 20px;
   border: none;
