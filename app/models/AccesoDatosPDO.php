@@ -100,6 +100,20 @@ class AccesoDatos
         return $cli;
     }
 
+    public function getClienteByEmail(string $email)
+    {
+        $cli = false;
+        $stmt_cli = $this->dbh->prepare("SELECT * FROM Clientes WHERE email = :email");
+        $stmt_cli->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
+        $stmt_cli->bindParam(':email', $email);
+
+        if ($stmt_cli->execute()) {
+            if ($obj = $stmt_cli->fetch()) {
+                $cli = $obj;
+            }
+        }
+        return $cli;
+    }
 
 
     // UPDATE TODO

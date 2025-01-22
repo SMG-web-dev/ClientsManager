@@ -68,7 +68,43 @@ function crudModificar($id = null)
 function crudPostAlta()
 {
     limpiarArrayEntrada($_POST); //Evito la posible inyección de código
-    // !!!!!! No se controlan que los datos sean correctos 
+    $errores = [];
+
+    // Validar email
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errores['email'] = "Formato de correo electrónico incorrecto.";
+    } else {
+        $db = AccesoDatos::getModelo();
+        if ($db->getClienteByEmail($_POST['email'])) {
+            $errores['email'] = "Este correo electrónico ya está registrado.";
+        }
+    }
+
+    // Validar IP
+    if (!filter_var($_POST['ip_address'], FILTER_VALIDATE_IP)) {
+        $errores['ip_address'] = "Formato de dirección IP incorrecto.";
+    }
+
+    // Validar teléfono
+    if (!preg_match('/^\d{3}-\d{3}-\d{4}$/', $_POST['telefono'])) {
+        $errores['telefono'] = "Formato de teléfono incorrecto (999-999-9999).";
+    }
+
+    if (!empty($errores)) {
+        $_SESSION['errores'] = $errores;
+        $cli = new Cliente();
+        $cli->id            = $_POST['id'];
+        $cli->first_name    = $_POST['first_name'];
+        $cli->last_name     = $_POST['last_name'];
+        $cli->email         = $_POST['email'];
+        $cli->gender        = $_POST['gender'];
+        $cli->ip_address    = $_POST['ip_address'];
+        $cli->telefono      = $_POST['telefono'];
+        $orden = "Nuevo";
+        include_once "app/views/formulario.php";
+        return;
+    }
+
     $cli = new Cliente();
     $cli->id            = $_POST['id'];
     $cli->first_name    = $_POST['first_name'];
@@ -88,8 +124,46 @@ function crudPostAlta()
 function crudPostModificar()
 {
     limpiarArrayEntrada($_POST); //Evito la posible inyección de código
-    $cli = new Cliente();
+    $errores = [];
+    $id = $_POST['id'];
 
+    // Validar email
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errores['email'] = "Formato de correo electrónico incorrecto.";
+    } else {
+        $db = AccesoDatos::getModelo();
+        $clienteExistente = $db->getClienteByEmail($_POST['email']);
+        if ($clienteExistente && $clienteExistente->id != $id) {
+            $errores['email'] = "Este correo electrónico ya está registrado.";
+        }
+    }
+
+    // Validar IP
+    if (!filter_var($_POST['ip_address'], FILTER_VALIDATE_IP)) {
+        $errores['ip_address'] = "Formato de dirección IP incorrecto.";
+    }
+
+    // Validar teléfono
+    if (!preg_match('/^\d{3}-\d{3}-\d{4}$/', $_POST['telefono'])) {
+        $errores['telefono'] = "Formato de teléfono incorrecto (999-999-9999).";
+    }
+
+    if (!empty($errores)) {
+        $_SESSION['errores'] = $errores;
+        $cli = new Cliente();
+        $cli->id            = $_POST['id'];
+        $cli->first_name    = $_POST['first_name'];
+        $cli->last_name     = $_POST['last_name'];
+        $cli->email         = $_POST['email'];
+        $cli->gender        = $_POST['gender'];
+        $cli->ip_address    = $_POST['ip_address'];
+        $cli->telefono      = $_POST['telefono'];
+        $orden = "Modificar";
+        include_once "app/views/formulario.php";
+        return;
+    }
+
+    $cli = new Cliente();
     $cli->id            = $_POST['id'];
     $cli->first_name    = $_POST['first_name'];
     $cli->last_name     = $_POST['last_name'];

@@ -1,3 +1,7 @@
+<?php
+$errores = $_SESSION['errores'] ?? [];
+unset($_SESSION['errores']);
+?>
 <hr>
 <form method="POST">
 
@@ -12,15 +16,27 @@
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="<?= $cli->email; ?>">
+    <!-- Mejora 2 -->
+    <?php if (isset($errores['email'])): ?>
+        <span style="color: red; margin-bottom: 1rem; margin-bottom: 1rem;"><?= $errores['email'] ?></span>
+    <?php endif; ?>
 
     <label for="gender">Género:</label>
     <input type="text" id="gender" name="gender" value="<?= $cli->gender; ?>">
 
     <label for="ip_address">Dirección IP:</label>
     <input type="text" id="ip_address" name="ip_address" value="<?= $cli->ip_address; ?>">
+    <!-- Mejora 2 -->
+    <?php if (isset($errores['ip_address'])): ?>
+        <span style="color: red; margin-bottom: 1rem;"><?= $errores['ip_address'] ?></span>
+    <?php endif; ?>
 
     <label for="telefono">Teléfono:</label>
     <input type="text" id="telefono" name="telefono" value="<?= $cli->telefono; ?>">
+    <!-- Mejora 2 -->
+    <?php if (isset($errores['telefono'])): ?>
+        <span style="color: red; margin-bottom: 1rem;"><?= $errores['telefono'] ?></span>
+    <?php endif; ?>
 
 
     <input type="submit" name="orden" value="<?= $orden ?>">
@@ -28,7 +44,7 @@
 </form>
 <br>
 
-<!-- Mejora anterior/siguiente -->
+<!-- Mejora 1 -->
 <?php if ($orden == "Modificar") : ?>
     <div style="display: flex;">
         <?php if ($cli->idAnterior !== null): ?>
