@@ -18,7 +18,7 @@ unset($_SESSION['errores']);
     <input type="email" id="email" name="email" value="<?= $cli->email; ?>">
     <!-- Mejora 2 -->
     <?php if (isset($errores['email'])): ?>
-        <span style="color: red; margin-bottom: 1rem; margin-bottom: 1rem;"><?= $errores['email'] ?></span>
+        <span style="color: red; margin-bottom: 1rem;"><?= $errores['email'] ?></span>
     <?php endif; ?>
 
     <label for="gender">Género:</label>
