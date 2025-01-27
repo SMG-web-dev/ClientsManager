@@ -47,6 +47,13 @@ class AccesoDatos
         }
     }
 
+    // Mejora 4
+    // Obtener el último ID insertado
+    public function getLastInsertId()
+    {
+        return $this->dbh->lastInsertId();
+    }
+
 
     // Devuelvo cuantos filas tiene la tabla
 

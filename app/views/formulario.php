@@ -3,10 +3,9 @@ $errores = $_SESSION['errores'] ?? [];
 unset($_SESSION['errores']);
 ?>
 <hr>
-<form method="POST">
-
+<form method="POST" enctype="multipart/form-data">
     <label for="id">Id:</label>
-    <input type="text" name="id" <?php if ($orden = "Modificar") : ?>readonly<?php endif; ?> value="<?= $cli->id ?>">
+    <input type="text" name="id" readonly value="<?= $cli->id ?>">
 
     <label for="first_name">Nombre:</label>
     <input type="text" id="first_name" name="first_name" value="<?= $cli->first_name; ?>">
@@ -16,6 +15,7 @@ unset($_SESSION['errores']);
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="<?= $cli->email; ?>">
+
     <!-- Mejora 2 -->
     <?php if (isset($errores['email'])): ?>
         <span style="color: red; margin-bottom: 1rem;"><?= $errores['email'] ?></span>
@@ -26,6 +26,7 @@ unset($_SESSION['errores']);
 
     <label for="ip_address">Dirección IP:</label>
     <input type="text" id="ip_address" name="ip_address" value="<?= $cli->ip_address; ?>">
+
     <!-- Mejora 2 -->
     <?php if (isset($errores['ip_address'])): ?>
         <span style="color: red; margin-bottom: 1rem;"><?= $errores['ip_address'] ?></span>
@@ -33,10 +34,17 @@ unset($_SESSION['errores']);
 
     <label for="telefono">Teléfono:</label>
     <input type="text" id="telefono" name="telefono" value="<?= $cli->telefono; ?>">
+
     <!-- Mejora 2 -->
     <?php if (isset($errores['telefono'])): ?>
         <span style="color: red; margin-bottom: 1rem;"><?= $errores['telefono'] ?></span>
     <?php endif; ?>
+
+    <!-- Mejora 4 -->
+    <div style="margin:2rem;">
+        <label for="image">Imagen (JPG o PNG, máximo 500KB):</label>
+        <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png">
+    </div>
 
 
     <input type="submit" name="orden" value="<?= $orden ?>">

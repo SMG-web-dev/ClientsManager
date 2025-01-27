@@ -1,1 +1,11 @@
-Deny from All
+# Permitir el acceso a las imágenes y Asegura que Apache permita la sobrescritura y acceso
+
+# chmod -R 755 app/uploads/
+
+# chmod -R 777 app/uploads/
+
+<FilesMatch "\.(jpg|png)$"> # Permitir la lectura de las imágenes
+Allow from all
+</FilesMatch>
+
+# Todo el contenido anterior pertenece a la mejora 4
