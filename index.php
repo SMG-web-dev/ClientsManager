@@ -8,6 +8,7 @@ require_once 'app/config/configDB.php';
 require_once 'app/models/Cliente.php';
 require_once 'app/models/AccesoDatosPDO.php';
 require_once 'app/controllers/crudclientes.php';
+require_once 'app/helpers/IPHelper.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 

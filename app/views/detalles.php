@@ -38,7 +38,25 @@ if (!file_exists($imagePath)) {
   </tr>
   <tr>
     <td>ip_address:</td>
-    <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly></td>
+    <td>
+      <?= $cli->ip_address ?>
+      <!-- Mejora 5 -->
+      <?php
+      $countryCode = IPHelper::getCountryFromIP($cli->ip_address);
+      if ($countryCode):
+        $flagUrl = IPHelper::getFlagUrl($countryCode, "w40");
+      ?>
+        <img src="<?= $flagUrl ?>"
+          alt="Country flag"
+          style="margin-left: 1rem; vertical-align: middle; border: 1px solid black;"
+          onerror="this.style.display='none'">
+      <?php else: ?>
+        <span style="margin-left: 10px; color: #666; font-style: italic;">
+          (País desconocido)
+        </span>
+      <?php endif; ?>
+      <!-------------->
+    </td>
   </tr>
   </tr>
   <tr>
