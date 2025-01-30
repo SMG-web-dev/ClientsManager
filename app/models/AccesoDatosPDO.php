@@ -66,12 +66,18 @@ class AccesoDatos
 
 
     // SELECT Devuelvo la lista de Usuarios
-    public function getClientes($primero, $cuantos): array
+    public function getClientes($primero, $cuantos, $orderBy = 'id'): array
     {
         $tuser = [];
+
+        // Mejora 6 $orderBy
+        $allowedOrders = ['id', 'first_name', 'last_name', 'email', 'gender', 'ip_address'];
+        if (!in_array($orderBy, $allowedOrders)) {
+            $orderBy = 'id';
+        }
         // Crea la sentencia preparada
         // echo "<h1> $primero : $cuantos  </h1>";
-        $stmt_usuarios  = $this->dbh->prepare("select * from Clientes limit $primero,$cuantos");
+        $stmt_usuarios  = $this->dbh->prepare("SELECT * FROM Clientes ORDER BY $orderBy LIMIT $primero,$cuantos");
         // Si falla termina el programa
         $stmt_usuarios->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
 

@@ -15,6 +15,12 @@ require_once 'app/helpers/LocationHelper.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
+// Mejora 6 $orderBy
+if (isset($_GET['orderBy'])) {
+    $_SESSION['orderBy'] = $_GET['orderBy'];
+}
+$orderBy = $_SESSION['orderBy'] ?? 'id';
+
 //---- PAGINACIÓN ----
 $midb = AccesoDatos::getModelo();
 $totalfilas = $midb->numClientes();
@@ -98,7 +104,10 @@ else {
 if (ob_get_length() == 0) {
     $db = AccesoDatos::getModelo();
     $posini = $_SESSION['posini'];
-    $tclientes = $db->getClientes($posini, FPAG);
+
+    // Mejora 6 $orderBy
+    $tclientes = $db->getClientes($posini, FPAG, $orderBy);
+
     require_once "app/views/list.php";
 }
 $contenido = ob_get_clean();

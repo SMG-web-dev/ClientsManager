@@ -4,12 +4,12 @@
 <br>
 <table>
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>IP Address</th>
+    <tr>    <!-- Mejora 6 $orderBy -->
+            <th><a href="?orden=list&orderBy=id">ID</a></th>
+            <th><a href="?orden=list&orderBy=first_name">First Name</a></th>
+            <th><a href="?orden=list&orderBy=email">Email</a></th>
+            <th><a href="?orden=list&orderBy=gender">Gender</a></th>
+            <th><a href="?orden=list&orderBy=ip_address">IP Address</a></th>
             <th>Teléfono</th>
             <th colspan="3" ></th>
         </tr>
