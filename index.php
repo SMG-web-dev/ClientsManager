@@ -8,7 +8,10 @@ require_once 'app/config/configDB.php';
 require_once 'app/models/Cliente.php';
 require_once 'app/models/AccesoDatosPDO.php';
 require_once 'app/controllers/crudclientes.php';
+// Mejora 5
 require_once 'app/helpers/IPHelper.php';
+// Mejora 10
+require_once 'app/helpers/LocationHelper.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 

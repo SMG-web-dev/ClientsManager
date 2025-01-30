@@ -86,3 +86,30 @@ if (!file_exists($imagePath)) {
     </form>
   <?php endif; ?>
 </div>
+
+<!-- Mejora 10 -->
+<div class="map-container">
+  <h2>Localización Geográfica</h2>
+  <?php
+  $location = LocationHelper::getLocationFromIP($cli->ip_address);
+  if ($location):
+  ?>
+    <div id="map"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+          const coordinates = {
+            lat: <?= $location['lat'] ?? 0 ?>,
+            lon: <?= $location['lon'] ?? 0 ?>
+          };
+          initializeMap('map', coordinates);
+        }
+      });
+    </script>
+  <?php else: ?>
+    <div class="location-info">
+      No se pudo obtener la localización para esta dirección IP.
+    </div>
+  <?php endif; ?>
+</div>
