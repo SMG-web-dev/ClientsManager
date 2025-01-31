@@ -1,4 +1,4 @@
-<!-- Mejora imágenes -->
+<!-- Mejora 3 -->
 <?php
 $imagePath = "app/uploads/" . sprintf("%08d.jpg", $cli->id);
 if (!file_exists($imagePath)) {
@@ -67,7 +67,7 @@ if (!file_exists($imagePath)) {
 </table>
 <br>
 
-<!-- Mejora anterior/siguiente -->
+<!-- Mejora 1 -->
 <div style="display: flex;">
   <?php if ($cli->idAnterior !== null): ?>
     <form method="get" action="index.php">
@@ -89,7 +89,7 @@ if (!file_exists($imagePath)) {
 
 <!-- Mejora 10 -->
 <div class="map-container">
-  <h2>Localización Geográfica</h2>
+  <h3>Localización Geográfica</h3>
   <?php
   $location = LocationHelper::getLocationFromIP($cli->ip_address);
   if ($location):

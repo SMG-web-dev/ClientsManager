@@ -1,4 +1,4 @@
-<?php // Nueva clase LocationHelper para la mejora 10
+<?php // mejora 10 - Nueva clase LocationHelper
 class LocationHelper
 {
     public static function getLocationFromIP($ip)

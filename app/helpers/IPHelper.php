@@ -1,4 +1,4 @@
-<?php // Nueva clase IPHelper para la mejora 5
+<?php // mejora 5 - Nueva clase IPHelper
 class IPHelper
 {
     public static function getCountryFromIP($ip)
