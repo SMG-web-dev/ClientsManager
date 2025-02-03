@@ -6,7 +6,7 @@ if (!file_exists($imagePath)) {
 }
 ?>
 <hr>
-<button onclick="location.href='./'"> Volver </button>
+<button onclick="location.href='./'">Volver</button>
 <br><br>
 <table>
   <tr>
@@ -113,3 +113,12 @@ if (!file_exists($imagePath)) {
     </div>
   <?php endif; ?>
 </div>
+<br>
+<hr><br>
+
+<!-- Mejora 7 -->
+<form method="get" action="index.php">
+  <input type="hidden" name="orden" value="GenerarPDF">
+  <input type="hidden" name="id" value="<?= $cli->id ?>">
+  <button type="submit">Descargar PDF</button>
+</form>

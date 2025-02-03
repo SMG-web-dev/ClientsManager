@@ -223,3 +223,19 @@ function handleImageUpload($cli)
             $_SESSION['msg'] = "Error moviendo la imagen subida.";
     }
 }
+
+function crudGenerarPDF($id)
+{
+    $db = AccesoDatos::getModelo();
+    $cli = $db->getCliente($id);
+
+    if (!$cli) {
+        $_SESSION['msg'] = "Error: Cliente no encontrado.";
+        header("Location: index.php");
+        exit();
+    }
+
+    require_once 'app/helpers/pdfGenerator.php';
+    $pdf = new PDFGenerator();
+    $pdf->generateClientPDF($cli);
+}

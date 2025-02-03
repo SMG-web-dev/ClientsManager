@@ -81,6 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             case "Terminar":
                 crudTerminar();
                 break;
+            case "GenerarPDF":
+                crudGenerarPDF($_GET['id']);
+                break;
         }
     }
 }
