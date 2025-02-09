@@ -2,8 +2,7 @@
 $errores = $_SESSION['errores'] ?? [];
 unset($_SESSION['errores']);
 ?>
-<hr>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" class="forms">
     <label for="id">Id:</label>
     <input type="text" name="id" readonly value="<?= $cli->id ?>">
 
@@ -45,16 +44,13 @@ unset($_SESSION['errores']);
         <label for="image">Imagen (JPG o PNG, máximo 500KB):</label>
         <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png">
     </div>
-
-
     <input type="submit" name="orden" value="<?= $orden ?>">
-    <input type="submit" name="orden" value="Volver">
 </form>
 <br>
 
 <!-- Mejora 1 -->
 <?php if ($orden == "Modificar") : ?>
-    <div style="display: flex;">
+    <div class="button-container">
         <?php if ($cli->idAnterior !== null): ?>
             <form method="get" action="index.php">
                 <input type="hidden" name="orden" value="Modificar">
@@ -73,3 +69,4 @@ unset($_SESSION['errores']);
         <?php endif; ?>
     </div>
 <?php endif; ?>
+<button onclick="location.href='./'">Volver</button>

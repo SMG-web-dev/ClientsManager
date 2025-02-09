@@ -1,7 +1,8 @@
 <?php
-
+include_once "app/helpers/util.php";
 function crudBorrar($id)
 {
+    comprobarPermisos();
     $db = AccesoDatos::getModelo();
     $resu = $db->borrarCliente($id);
     if ($resu) {
@@ -19,6 +20,8 @@ function crudTerminar()
 
 function crudAlta()
 {
+    comprobarPermisos();
+
     $cli = new Cliente();
     $orden = "Nuevo";
     include_once "app/views/formulario.php";
@@ -27,9 +30,10 @@ function crudAlta()
 // Mejora anterior/siguiente
 function crudDetalles($id = null)
 {
+    comprobarPermisos();
     $db = AccesoDatos::getModelo();
 
-    // Validación del ID
+    // Validation del ID
     if ($id === null || !is_numeric($id)) {
         // Manejar el error - por ejemplo redirigir a la lista principal
         header("Location: index.php");
@@ -53,6 +57,7 @@ function crudDetalles($id = null)
 // Mejora anterior/siguiente
 function crudModificar($id = null)
 {
+    comprobarPermisos();
     if ($id === null) {
         // Manejar el error - redirigir o mostrar mensaje
         header("Location: index.php");
@@ -66,6 +71,7 @@ function crudModificar($id = null)
 }
 function crudPostAlta()
 {
+    comprobarPermisos();
     limpiarArrayEntrada($_POST); //Evito la posible inyección de código
     $errores = [];
 
@@ -92,26 +98,26 @@ function crudPostAlta()
     if (!empty($errores)) {
         $_SESSION['errores'] = $errores;
         $cli = new Cliente();
-        $cli->id            = $_POST['id'];
-        $cli->first_name    = $_POST['first_name'];
-        $cli->last_name     = $_POST['last_name'];
-        $cli->email         = $_POST['email'];
-        $cli->gender        = $_POST['gender'];
-        $cli->ip_address    = $_POST['ip_address'];
-        $cli->telefono      = $_POST['telefono'];
+        $cli->id      = $_POST['id'];
+        $cli->first_name  = $_POST['first_name'];
+        $cli->last_name   = $_POST['last_name'];
+        $cli->email       = $_POST['email'];
+        $cli->gender      = $_POST['gender'];
+        $cli->ip_address  = $_POST['ip_address'];
+        $cli->telefono    = $_POST['telefono'];
         $orden = "Nuevo";
         include_once "app/views/formulario.php";
         return;
     }
 
     $cli = new Cliente();
-    // $cli->id            = $_POST['id'];  // No se necesita asignar el ID (mejora 4)
-    $cli->first_name    = $_POST['first_name'];
-    $cli->last_name     = $_POST['last_name'];
-    $cli->email         = $_POST['email'];
-    $cli->gender        = $_POST['gender'];
-    $cli->ip_address    = $_POST['ip_address'];
-    $cli->telefono      = $_POST['telefono'];
+    // $cli->id      = $_POST['id'];  // No se necesita asignar el ID (mejora 4)
+    $cli->first_name  = $_POST['first_name'];
+    $cli->last_name   = $_POST['last_name'];
+    $cli->email       = $_POST['email'];
+    $cli->gender      = $_POST['gender'];
+    $cli->ip_address  = $_POST['ip_address'];
+    $cli->telefono    = $_POST['telefono'];
 
     $db = AccesoDatos::getModelo();
     if ($db->addCliente($cli)) {
@@ -125,6 +131,7 @@ function crudPostAlta()
 
 function crudPostModificar()
 {
+    comprobarPermisos();
     limpiarArrayEntrada($_POST); //Evito la posible inyección de código
     $errores = [];
     $id = $_POST['id'];
@@ -153,26 +160,26 @@ function crudPostModificar()
     if (!empty($errores)) {
         $_SESSION['errores'] = $errores;
         $cli = new Cliente();
-        $cli->id            = $_POST['id'];
-        $cli->first_name    = $_POST['first_name'];
-        $cli->last_name     = $_POST['last_name'];
-        $cli->email         = $_POST['email'];
-        $cli->gender        = $_POST['gender'];
-        $cli->ip_address    = $_POST['ip_address'];
-        $cli->telefono      = $_POST['telefono'];
+        $cli->id      = $_POST['id'];
+        $cli->first_name  = $_POST['first_name'];
+        $cli->last_name   = $_POST['last_name'];
+        $cli->email       = $_POST['email'];
+        $cli->gender      = $_POST['gender'];
+        $cli->ip_address  = $_POST['ip_address'];
+        $cli->telefono    = $_POST['telefono'];
         $orden = "Modificar";
         include_once "app/views/formulario.php";
         return;
     }
 
     $cli = new Cliente();
-    $cli->id            = $_POST['id'];
-    $cli->first_name    = $_POST['first_name'];
-    $cli->last_name     = $_POST['last_name'];
-    $cli->email         = $_POST['email'];
-    $cli->gender        = $_POST['gender'];
-    $cli->ip_address    = $_POST['ip_address'];
-    $cli->telefono      = $_POST['telefono'];
+    $cli->id      = $_POST['id'];
+    $cli->first_name  = $_POST['first_name'];
+    $cli->last_name   = $_POST['last_name'];
+    $cli->email       = $_POST['email'];
+    $cli->gender      = $_POST['gender'];
+    $cli->ip_address  = $_POST['ip_address'];
+    $cli->telefono    = $_POST['telefono'];
     handleImageUpload($cli);
     $db = AccesoDatos::getModelo();
     if ($db->modCliente($cli)) {
@@ -186,6 +193,7 @@ function crudPostModificar()
 // Mejora 4
 function handleImageUpload($cli)
 {
+    comprobarPermisos();
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $tmp_name = $_FILES['image']['tmp_name'];
         $name = $_FILES['image']['name'];
@@ -226,6 +234,7 @@ function handleImageUpload($cli)
 
 function crudGenerarPDF($id)
 {
+    comprobarPermisos();
     $db = AccesoDatos::getModelo();
     $cli = $db->getCliente($id);
 

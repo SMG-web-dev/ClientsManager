@@ -189,4 +189,48 @@ class AccesoDatos
     {
         trigger_error('La clonación no permitida', E_USER_ERROR);
     }
+
+    // Mejora 8 - Función para verificar credenciales
+    public function verificarUsuario(string $login, string $password): ?array
+    {
+        try {
+            // Preparar consulta
+            $stmt = $this->dbh->prepare("SELECT * FROM Usuarios WHERE login = :login");
+            $stmt->bindParam(':login', $login);
+            $stmt->execute();
+
+            // Obtener usuario
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Verificar usuario
+            if (!$usuario) {
+                error_log("Usuario no encontrado: $login");
+                return null;
+            }
+
+            // Verificar contraseña
+            if (!password_verify($password, $usuario['password'])) {
+                error_log("Contraseña incorrecta para: $login");
+                return null;
+            }
+
+            // Eliminar contraseña antes de devolver
+            unset($usuario['password']);
+            return $usuario;
+        } catch (Exception $e) {
+            error_log("Error en verificarUsuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    // Extra Mejora 8 - Método para registrar un nuevo usuario
+    public function registrarUsuario(string $login, string $password, int $rol): bool
+    {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->dbh->prepare("INSERT INTO Usuarios (login, password, rol) VALUES (:login, :password, :rol)");
+        $stmt->bindParam(':login', $login);
+        $stmt->bindParam(':password', $hash);
+        $stmt->bindParam(':rol', $rol);
+        return $stmt->execute();
+    }
 }

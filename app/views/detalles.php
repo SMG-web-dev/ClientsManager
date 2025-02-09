@@ -5,8 +5,17 @@ if (!file_exists($imagePath)) {
   $imagePath = "https://robohash.org/" . $cli->id . "?size=250x250";
 }
 ?>
-<hr>
-<button onclick="location.href='./'">Volver</button>
+<div class="button-group">
+  <!-- Mejoras 7 & 9 -->
+  <?php if ($_SESSION['user']['rol'] == 1): ?>
+    <br>
+    <form method="get" action="index.php">
+      <input type="hidden" name="orden" value="GenerarPDF">
+      <input type="hidden" name="id" value="<?= $cli->id ?>">
+      <button type="submit">Descargar PDF</button>
+    </form>
+  <?php endif; ?>
+</div>
 <br><br>
 <table>
   <tr>
@@ -68,7 +77,7 @@ if (!file_exists($imagePath)) {
 <br>
 
 <!-- Mejora 1 -->
-<div style="display: flex;">
+<div class="button-container">
   <?php if ($cli->idAnterior !== null): ?>
     <form method="get" action="index.php">
       <input type="hidden" name="orden" value="Detalles">
@@ -114,11 +123,4 @@ if (!file_exists($imagePath)) {
   <?php endif; ?>
 </div>
 <br>
-<hr><br>
-
-<!-- Mejora 7 -->
-<form method="get" action="index.php">
-  <input type="hidden" name="orden" value="GenerarPDF">
-  <input type="hidden" name="id" value="<?= $cli->id ?>">
-  <button type="submit">Descargar PDF</button>
-</form>
+<form><button onclick="location.href='./'">Volver</button></form>
