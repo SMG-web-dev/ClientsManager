@@ -32,7 +32,7 @@
             <br>
             <button type="submit">Registrar</button>
         </form>
-        <button onclick="history.back()"> Volver </button>
+        <button onclick="location.href='./'">Volver</button>
     </div>
 </body>
 

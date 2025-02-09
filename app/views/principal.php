@@ -19,9 +19,11 @@
             <h1>MIS CLIENTES CRUD versión 1.0</h1>
         </div>
         <hr>
-        <div id="aviso">
-            <?= $msg ?>
-        </div>
+        <?php if (!empty($msg)): ?>
+            <div id="aviso">
+                <?= $msg ?>
+            </div>
+        <?php endif; ?>
         <div id="content">
             <?= $contenido ?>
         </div>

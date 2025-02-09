@@ -93,6 +93,8 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="number"],
+input[type="tel"],
 select {
   width: 90%;
   padding: 12px;
@@ -138,7 +140,6 @@ input[type="submit"]:active {
   transform: translateY(0);
 }
 
-/* Contenedor de mapa mejorado */
 .map-container {
   margin-top: 30px;
   padding: 15px;
@@ -168,4 +169,24 @@ input[type="submit"]:active {
 img {
   max-height: 50rem;
   border-radius: 4px;
+}
+
+.mensaje-error {
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.mensaje-exito {
+  color: green;
+  background-color: #e6ffe6;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.forms input[type="submit"] {
+  margin-top: 10px;
 }

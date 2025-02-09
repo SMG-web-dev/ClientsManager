@@ -10,6 +10,8 @@ function crudBorrar($id)
     } else {
         $_SESSION['msg'] = " Error al eliminar el usuario " . $id . ".";
     }
+    header("Location: index.php");
+    exit();
 }
 
 function crudTerminar()
@@ -35,7 +37,6 @@ function crudDetalles($id = null)
 
     // Validation del ID
     if ($id === null || !is_numeric($id)) {
-        // Manejar el error - por ejemplo redirigir a la lista principal
         header("Location: index.php");
         exit();
     }
@@ -45,7 +46,6 @@ function crudDetalles($id = null)
 
     // Validar si se encontró el cliente
     if ($cli === null) {
-        // Manejar el caso de cliente no encontrado
         header("Location: index.php");
         exit();
     }
@@ -59,7 +59,7 @@ function crudModificar($id = null)
 {
     comprobarPermisos();
     if ($id === null) {
-        // Manejar el error - redirigir o mostrar mensaje
+        $_SESSION['msg'] = "ID de cliente no especificado";
         header("Location: index.php");
         exit();
     }
@@ -111,7 +111,6 @@ function crudPostAlta()
     }
 
     $cli = new Cliente();
-    // $cli->id      = $_POST['id'];  // No se necesita asignar el ID (mejora 4)
     $cli->first_name  = $_POST['first_name'];
     $cli->last_name   = $_POST['last_name'];
     $cli->email       = $_POST['email'];
@@ -121,11 +120,15 @@ function crudPostAlta()
 
     $db = AccesoDatos::getModelo();
     if ($db->addCliente($cli)) {
-        $cli->id = $db->getLastInsertId();  // Asegurarse de que el ID se asigna (mejora 4)
-        handleImageUpload($cli);  // Subir la imagen solo si se asignó un ID (mejora 4)
+        $cli->id = $db->getLastInsertId();
+        handleImageUpload($cli);
         $_SESSION['msg'] = "El usuario " . $cli->first_name . " se ha dado de alta.";
+        header("Location: index.php");
+        exit();
     } else {
         $_SESSION['msg'] = "Error al dar de alta al usuario " . $cli->first_name . ".";
+        header("Location: index.php");
+        exit();
     }
 }
 
@@ -180,15 +183,19 @@ function crudPostModificar()
     $cli->gender      = $_POST['gender'];
     $cli->ip_address  = $_POST['ip_address'];
     $cli->telefono    = $_POST['telefono'];
+
     handleImageUpload($cli);
     $db = AccesoDatos::getModelo();
     if ($db->modCliente($cli)) {
         $_SESSION['msg'] = " El usuario ha sido modificado";
+        header("Location: index.php");
+        exit();
     } else {
         $_SESSION['msg'] = " Error al modificar el usuario ";
+        header("Location: index.php");
+        exit();
     }
 }
-
 
 // Mejora 4
 function handleImageUpload($cli)
@@ -223,12 +230,15 @@ function handleImageUpload($cli)
         if (file_exists($uploadPath))
             unlink($uploadPath);
 
-
-        // Mover archivo
-        if (move_uploaded_file($tmp_name, $uploadPath))
+        if (move_uploaded_file($tmp_name, $uploadPath)) {
             $_SESSION['msg'] = "Imagen subida correctamente.";
-        else
+            header("Location: index.php");
+            exit();
+        } else {
             $_SESSION['msg'] = "Error moviendo la imagen subida.";
+            header("Location: index.php");
+            exit();
+        }
     }
 }
 

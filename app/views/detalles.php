@@ -46,6 +46,10 @@ if (!file_exists($imagePath)) {
   </tr>
   </tr>
   <tr>
+    <td>telefono:</td>
+    <td><input type="tel" name="telefono" value="<?= $cli->telefono ?>" readonly></td>
+  </tr>
+  <tr>
     <td>ip_address:</td>
     <td>
       <?= $cli->ip_address ?>
@@ -68,13 +72,8 @@ if (!file_exists($imagePath)) {
     </td>
   </tr>
   </tr>
-  <tr>
-    <td>telefono:</td>
-    <td><input type="tel" name="telefono" value="<?= $cli->telefono ?>" readonly></td>
-  </tr>
   </tr>
 </table>
-<br>
 
 <!-- Mejora 1 -->
 <div class="button-container">
@@ -86,7 +85,6 @@ if (!file_exists($imagePath)) {
         < </button>
     </form>
   <?php endif; ?>
-
   <?php if ($cli->idSiguiente !== null): ?>
     <form method="get" action="index.php">
       <input type="hidden" name="orden" value="Detalles">
@@ -95,7 +93,7 @@ if (!file_exists($imagePath)) {
     </form>
   <?php endif; ?>
 </div>
-
+<button onclick="location.href='./'">Volver</button>
 <!-- Mejora 10 -->
 <div class="map-container">
   <h3>Localización Geográfica</h3>
@@ -122,5 +120,3 @@ if (!file_exists($imagePath)) {
     </div>
   <?php endif; ?>
 </div>
-<br>
-<form><button onclick="location.href='./'">Volver</button></form>
