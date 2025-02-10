@@ -1,114 +1,75 @@
-# ClientsManager 📊
+# Mejoras del Proyecto de Gestión de Clientes 🚀
 
-A robust PHP-based client management system with CRUD operations and pagination functionality.
+## 1. Navegación de Detalles 🔍
+- Implementación de botones "Siguiente" y "Anterior"
+- Navegación fluida entre registros
+- Mantiene el contexto de visualización
 
-## 🚀 Features
+## 2. Validación de Datos ✅
+- Verificación de correo electrónico único
+- Validación de formato de IP
+- Control de formato de teléfono (999-999-9999)
 
-- Complete CRUD operations for client management
-- Paginated client list view
-- Detailed client profiles
-- MVC architecture for clean code organization
-- Secure database operations
-- Responsive user interface
+## 3. Gestión de Imágenes de Clientes 🖼️
+- Nomenclatura: 00000XXX.jpg
+- Imagen por defecto con RoboHash
+- Almacenamiento en directorio uploads
 
-## 📋 Prerequisites
+## 4. Subida de Imágenes 📤
+- Formatos: JPG y PNG
+- Límite de tamaño: 500 Kbps
+- Subida opcional en nuevos registros
 
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Web server (Apache/Nginx)
-- Composer (for dependency management)
+## 5. Información Geográfica 🌍
+- Obtención de información de país con ip-api.com
+- Visualización de bandera con Flagpedia
+- Representación geográfica del cliente
 
-## 🛠️ Installation
+## 6. Lista de Clientes Mejorada 📋
+- Ordenación por:
+  - Nombre
+  - Apellido
+  - Correo electrónico
+  - Género
+  - Dirección IP
+- Navegación adaptativa
 
-1. Clone the repository:
+## 7. Generación de PDF 📄
+- Botón "Imprimir" en detalles de cliente
+- Exportación completa de información
 
-```bash
-git clone https://github.com/yourusername/ClientsManager.git
-```
+## 8. Sistema de Autenticación 🔐
+- Nueva tabla de usuarios
+- Campos: Login, Password (encriptada), Rol
+- Máximo 3 intentos de inicio de sesión
+- Bloqueo temporal tras intentos fallidos
 
-2. Navigate to the project directory:
+## 9. Control de Acceso por Rol 🛡️
+- **Rol 0 (Visualización)**:
+  - Lista de clientes
+  - Detalles de clientes
+- **Rol 1 (Administrador)**:
+  - Todos los permisos de Rol 0
+  - Modificación de registros
+  - Eliminación de usuarios
 
-```bash
-cd ClientsManager
-```
+## 10. Geolocalización 🗺️
+- Integración con OpenLayers
+- Visualización de ubicación por IP
+- Mapa interactivo de localización
 
-3. Configure your database connection in `config/configDB.php`
+## 11. Logout 🚪
+- Cierre de sesión seguro
+- Redirección a página de login
+- Limpieza de sesión y cookies
 
-4. Import the database schema:
+## 12. Mejora de Estilos 🎨
+- Diseño responsive
+- Tema de interfaz unificado
+- Optimización de accesibilidad
 
-```bash
-mysql -u your_username -p your_database < Clientes.sql
-```
-
-## 📁 Project Structure
-
-```
-ClientsManager/
-├── app/
-│   ├── config/
-│   │   └── configDB.php
-│   ├── controllers/
-│   │   ├── crusclients.php
-│   │   └── util.php
-│   ├── models/
-│   │   ├── AccesoDatosPDO.php
-│   │   └── Cliente.php
-│   └── views/
-│       ├── detalles.php
-│       ├── formulario.php
-│       ├── list.php
-│       └── principal.php
-├── web/
-│   ├── css/
-│   │   └── default.css
-│   └── js/
-│       └── funciones.js
-└── .htaccess
-```
-
-## 🔧 Configuration
-
-1. Update database credentials in `config/configDB.php`:
-
-```php
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'your_database');
-define('DB_USER', 'your_username');
-define('DB_PASS', 'your_password');
-```
-
-## 💻 Usage
-
-1. Access the application through your web browser
-2. Use the navigation menu to:
-   - View client list with pagination
-   - Add new clients
-   - Edit existing client information
-   - View detailed client profiles
-   - Delete clients
-
-## 🔐 Security Features
-
-- PDO prepared statements for database operations
-- Input validation and sanitization
-- Secure password handling
-- Access control implementation
-
-## 🤝 Contributing
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## ✨ Acknowledgments
-
-- Built with PHP and MySQL
-- Uses MVC architecture pattern
-- Implements responsive design principles
-- Features secure database operations
+## 13. Registro de Nuevos Usuarios 👥
+- Formulario de registro independiente
+- Validación de datos de usuario
+- Creación de cuenta con rol predeterminado
+- Verificación de credenciales únicas
